@@ -1,1 +1,1 @@
-web: gunicorn crop_backend.wsgi --log-file -
+web: gunicorn crop_backend.wsgi --timeout 120
