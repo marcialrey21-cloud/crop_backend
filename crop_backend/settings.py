@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'crop_backend',
     'scanner.apps.ScannerConfig',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -156,20 +157,12 @@ REST_FRAMEWORK = {
     )
 }
 
-# --- ENTERPRISE EMAIL CONFIGURATION (SMTP) ---
+# --- ENTERPRISE EMAIL CONFIGURATION (API) ---
 import os
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_USE_SSL = False  # Typically, you use either TLS or SSL, not both
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": os.environ.get("BREVO_API_KEY"),
+}
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-TIME_ZONE = 'Asia/Manila'
-USE_TZ = True
-# --- PRODUCTION SETTINGS ---
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app']
+EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+DEFAULT_FROM_EMAIL = "marcialrey21@gmail.com"  # Must be your verified Brevo sender email
