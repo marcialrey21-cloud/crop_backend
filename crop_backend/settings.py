@@ -23,10 +23,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jp+xk84^j@0_@wntp(7g5okdefplp6&cdo3dk2229_&16j^dg7'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-jp+xk84^j@0_@wntp(7g5okdefplp6&cdo3dk2229_&16j^dg7')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,8 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+STATTIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -135,9 +133,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # --- CLOUDINARY CLOUD STORAGE SETTINGS ---
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': ('dndssz7eo'),
-    'API_KEY': ('358845244317491'),
-    'API_SECRET': ('hP_6HaAxn9YNZtzZ7z1iGKz-Kr8'),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
 # NEW: Django 5.0 requires the STORAGES dictionary to route files to the cloud
