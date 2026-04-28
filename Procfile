@@ -1,1 +1,1 @@
-web: gunicorn crop_backend.wsgi --timeout 120
+web: python manage.py migrate && gunicorn crop_backend.wsgi --timeout 120
